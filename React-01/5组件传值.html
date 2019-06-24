@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-05组件传值</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    组件嵌套的话，父子级关系由它们的嵌套关系决定
+*/
+  var Father = React.createClass({
+    render(){
+      return(
+        <div>
+          <h3>hello,father!</h3>
+         <p> ----------------------</p>
+          <Son/>
+          {this.props.name}
+        </div>
+      )
+    }
+  })
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h3>hello,son!</h3>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father name='james'/>,
+    app
+  )
+</script>
+</html>

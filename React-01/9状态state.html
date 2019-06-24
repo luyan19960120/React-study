@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-09状态state</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：state和props
+    props属性：组件在生成时具备的属性，有些会变来变去的值不适合放在props里面
+    state状态：独立个性，善变，可以改变
+    
+*/
+  var Father = React.createClass({
+    //状态的声明使用一个钩子函数  getInitialState  return obj，因为希望有一个独立的state
+    getInitialState(){
+      return {
+        name: 'James',
+        onOff: true
+      }
+    },
+    render(){
+      return(
+        <div>
+          <h3>hello,React!</h3>
+          <p>{ this.state.name }</p>
+        </div>
+      )
+    }
+  })
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h3>hello,Son!</h3>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+</script>
+</html>

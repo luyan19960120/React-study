@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-07当前组件默认属性</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    
+*/
+  var Father = React.createClass({
+    //钩子函数
+    getDefaultProps(){
+      return{
+        // key:value  
+        // 默认属性，react希望这些属性是共享的，优先级别低，会被外部属性覆盖
+        jineng: 'R大招'
+      }
+    },
+    render(){
+      return(
+        <div>
+          <h3>hello,father!</h3>
+          {this.props.jineng}
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father jineng='E大招'/>,
+    app
+  )
+</script>
+</html>

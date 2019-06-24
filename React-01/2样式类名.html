@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-02样式类名问题</title>
+  <style media="screen">
+    /* 属性选择器 */
+    /* [data-name='box']{
+      background: orange;  
+    } */
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<!-- 2.将页面script的type改成"text/babel"，才可以使用jsx -->
+<script type="text/babel">
+  // 3.创建组件
+  var Hello = React.createClass({
+    styleObj:{
+      background: 'blue'
+    },
+    render(){
+      return(
+        <div data-name="box" style={this.styleObj}>
+          {/*style外层花括号是解析jax语法的，内层的花括号是应为里面是对象键值对*/}
+          {/*这是注释*/}
+          <h3>hello,react!</h3>
+        </div>
+      )
+    }
+  })
+
+  //4.渲染dom ==> ReactDOM.render(组件，组件范围)
+  //组件范围不要加在body，写一个<div id="app"></div>
+  ReactDOM.render(
+    <Hello></Hello>,
+    // <Hello/>  //也可以写成单标签
+    document.querySelector('#app')
+  )
+  //样式类名总结：
+  // 1.传统方式
+    //id选择器--正常使用
+    //属性选择器--正常使用-- data-name='box'  [data-name='box']{color: red;}
+    //内联样式style--  style={{color: 'pink'}}
+    //class选择器--不能正常使用，因为在react中class是一个关键字，class改成className
+  //2.react形式
+    //建议所有html css js image写在组件中
+    //将style样式写成对象形式，写成options中，然后通过内联style={this.styleObj}
+</script>
+</html>

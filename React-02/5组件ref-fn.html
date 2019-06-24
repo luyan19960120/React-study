@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件通讯ref-fn</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="../React-01/react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="../React-01/react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="../React-01/browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：ref 打标记
+    1.直接绑定在组件或者元素身上 <Son ref/>、<div ref></div>
+    通过 this.ref.true  ...
+    2.ref的值也可以是一个函数 <Son ref = { el => this.el = el } >  推荐
+*/
+  var Father = React.createClass({
+    knick(){
+      this.son.change()
+      // this.refs.true.change()
+    },
+    render(){
+      return(
+        <div>
+          <h3>father!</h3>
+          <button onClick={this.knick}>踢一脚</button>
+          <Son ref={el=>{this.son = el}}/>
+        </div>
+      )
+    }
+  })
+
+  var Son = React.createClass({
+    getInitialState(){
+      return {
+        doing: '打游戏'
+      }
+    },
+    change(){
+      this.setState({
+        doing: '写作业'
+      })
+    },
+    render(){
+      return(
+        <div>
+          <h4>son</h4>
+          <h4>{this.props.name}</h4>
+          <h4>{this.props.age}</h4>
+          <h4>{this.state.doing}</h4>
+        </div>
+      )
+    }
+  })
+
+  ReactDOM.render(
+    <Father age='2'/>,
+    app
+  )
+</script>
+</html>

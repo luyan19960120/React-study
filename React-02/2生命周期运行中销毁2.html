@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>生命周期运行中销毁2</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="../React-01/react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="../React-01/react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="../React-01/browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    销毁
+      componentWillUnmount
+      1.通过开关来控制一个组件的创建和销毁
+      2.通过ReactDOM提供的API来卸载组件
+*/
+  var Father = React.createClass({
+    getInitialState(){
+      return {
+        flag: true
+      }
+    },
+    getDefaultProps(){
+      return {
+        name: 'react'
+      }
+    },
+    destroy(){
+      //暴力销毁
+      ReactDOM.unmountComponentAtNode(document.querySelector('#app'))
+    },
+    render(){
+      let {flag} = this.state
+      let {name} = this.props
+      return(
+        <div>
+          <h3>father!</h3>
+          <button onClick= {this.destroy}>销毁</button>
+        </div>
+      )
+    },
+    componentWillUnmount(){
+      console.log("组件销毁")
+    }
+  })
+
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h4>son</h4>
+        </div>
+      )
+    }
+  })
+
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+
+  /*
+    vue的destroyed  vs  react componentWillUnmount
+    vue卸载后组件会留一个空壳（组件模板），我们需要去删除这个空壳
+    react中直接就全部删除了
+  */
+</script>
+</html>

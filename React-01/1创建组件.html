@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-01创建第一个组件</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<!-- 2.将页面script的type改成"text/babel"，才可以使用jsx -->
+<script type="text/babel">
+  // 3.创建组件
+  var Hello = React.createClass({
+    render(){
+      return(
+        <div>
+          {/*这是注释*/}
+          <h3>hello,react!</h3>
+        </div>
+      )
+    }
+  })
+
+  //4.渲染dom ==> ReactDOM.render(组件，组件范围)
+  //组件范围不要加在body，写一个<div id="app"></div>
+  ReactDOM.render(
+    <Hello></Hello>,
+    // <Hello/>  //也可以写成单标签
+    document.querySelector('#app')
+    // document.querySelector('#app')  //可以简写成app
+  )
+  //总结：
+  //1.文件引用--组件创建--组件渲染
+  //2.注释如何使用
+  //3.看报错信息（jsx语法根元素的问题--closing tag--未闭合的标签）
+</script>
+</html>

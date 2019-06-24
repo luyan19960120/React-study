@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-13生命周期运行中</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    初始化：
+      getDefaultProps 设置默认属性
+      getInitialState  设置默认状态
+      componentWillMount  1.获取数据 2。组件生成前，最后一次修改数据的机会
+      render 模板渲染
+      componentDidMount  操作真实DOM
+      扩展：阿里巴巴这边一般在componentDidMount里面获取数据  性能问题？
+      阿里react前端，很多都在写组件
+    
+    运行中：
+      componentWillReceiveProps 属性更改触发（父子组件）接收参数
+      shouldComponentUpdate react性能优化关键
+      componentWillUpdate  //没有实际用途
+      render //模板渲染
+      componentDidUpdate  //更新结束，更新后的DOM
+      
+    销毁
+      componentWillUnmount
+*/
+  var Father = React.createClass({
+    //定义默认属性
+    getDefaultProps(){
+      return {
+        name:'react'
+      }
+    },
+    //定义初始状态
+    getInitialState(){
+      return {
+        flag: false
+      }
+    },
+    change(){
+      let {flag} = this.state
+      let {name} = this.props
+      this.setState({
+        flag:!flag
+      })
+    },
+    render(){
+      let {flag} = this.state
+      let {name} = this.props
+      console.log('render')
+      return(
+        <div className='box'>
+          <h3>father!</h3>
+          <button onClick={this.change}>改变状态修改属性</button>
+          {/*状态控制属性*/}
+          <Son name={flag?name:'旺财'}/>
+        </div>
+      )
+    }
+  })
+
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h4>son</h4>
+          <h4>{this.props.name}</h4>
+        </div>
+      )
+    },
+    //父组件改变子组件属性
+    componentWillReceiveProps(a){
+      console.log(a,'更改后的数据')
+      console.log(this.props.name)  //还是旧值
+    },
+    //判断数据更改要不要更改视图，return true 或 false
+    //react性能优化关键，极其重要
+    shouldComponentUpdate(){
+      return true
+    },
+    //组件即将更新，类似于vue里面的beforeUpdate
+    //这个钩子里千万不要改变状态，容易造成死循环
+    componentWillUpdate(){
+      console.log('componentWillUpdate')
+    },
+    // render(){},
+    //类似于vue里的updated
+    //可以拿到更新后的data和DOM
+    //可以操作更新后的DOM
+    componentDidUpdate(){
+      console.log('componentDidUpdate')
+    }
+  })
+
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+</script>
+</html>

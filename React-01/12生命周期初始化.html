@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-12生命周期初始化</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    初始化：
+      getDefaultProps 设置默认属性
+      getInitialState  设置默认状态
+      componentWillMount  1.获取数据 2。组件生成前，最后一次修改数据的机会
+      render 模板渲染
+      componentDidMount  操作真实DOM
+      扩展：阿里巴巴这边一般在componentDidMount里面获取数据  性能问题？
+      阿里react前端，很多都在写组件
+    
+    运行中：
+      componentWillReceiveProps
+      shouldComponentUpdate
+      componentWillUpdate
+      render
+      componentDidUpdate
+      
+    销毁
+      componentWillUnmount
+*/
+  var Father = React.createClass({
+    //定义默认属性
+    getDefaultProps(){
+      return {
+        name:'react'
+      }
+    },
+    //定义初始状态
+    getInitialState(){
+      return {
+        flag: true
+      }
+    },
+    //组件挂载前，等同于vue的created+beforeMount,
+    //可以获取数据，但拿不到DOM
+    //提供了(唯一)的一次修改数据的机会
+    componentWillMount(){
+      console.log('state',this.state.flag)
+      console.log('props',this.props.name)
+      this.props.name = 'vue'
+      //只能通过setState改变状态
+      this.setState({
+        flag: false
+      })
+    },
+    render(){
+      console.log('render')
+      return(
+        <div className='box'>
+          <h3>hello,React!</h3>
+          <h3>{this.state.flag}</h3>
+          <h3>{this.props.name}</h3>
+        </div>
+      )
+    },
+    //挂载结束，可以操作真是DOM，类似于vue中的mounted
+    componentDidMount(){
+      console.log('didmount')
+      console.log(document.querySelector('.box'))
+    }
+  })
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+</script>
+</html>

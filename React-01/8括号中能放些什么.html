@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-08括号中能放些什么</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：
+    {}
+    jax当中的js，可支持多种语法
+    
+*/
+  var Father = React.createClass({
+    //钩子函数
+    getDefaultProps(){
+      return{
+        msg: 'james',
+        flag: false
+      }
+    },
+    render(){
+      let {msg,flag} = this.props //结构赋值
+      return(
+        <div>
+          <h3>hello,React!</h3>
+          {/*这里研究一些这个{}里能写一些什么语法*/}
+          <p>{ 1 + 1 }</p>
+          <p>{ 2 > 1 ? 1 : 2 }</p>
+          <p>{ flag || '没有前面的值，显示这个值' }</p>
+          <p>{ msg }</p>
+          <p>{/* function(){alert(1)}() */}</p>
+          <p>*{ (function(){return msg})() }</p>
+          {flag||<Son/>}
+          {flag?<Son/>:'组件未显示'}
+        </div>
+      )
+    }
+  })
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h3>hello,Son!</h3>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father jineng='E大招'/>,
+    app
+  )
+</script>
+</html>

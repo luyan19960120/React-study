@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-03事件</title>
+  <style media="screen">
+    /* 属性选择器 */
+    /* [data-name='box']{
+      background: orange;  
+    } */
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<!-- 2.将页面script的type改成"text/babel"，才可以使用jsx -->
+<script type="text/babel">
+  // 3.创建组件
+  var Hello = React.createClass({
+    styleObj:{
+      background: 'blue'
+    },
+    handle(){
+      alert("触发事件")
+    },
+    render(){
+      return(
+        <div data-name="box" style={this.styleObj} onClick={this.handle}>
+          <h3>hello,react!</h3>
+        </div>
+      )
+    }
+  })
+
+  ReactDOM.render(
+    <Hello/>,
+    document.querySelector('#app')
+  )
+
+  //总结：
+  // 1. on + eventType  eventType首字母大写  例如： onClick={this.事件名}
+  // 2.  onClick={this.事件名()}  注意：如果直接事件名()就会直接执行
+</script>
+</html>

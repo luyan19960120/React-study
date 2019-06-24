@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-11属性更改</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：state和props
+    1.属性可以从父组件获取，状态不可以
+    2.属性可以由父组件改，状态不可以
+    3.属性能在内部设置默认值，状态也可以(getDefaultProps和getInitialState)
+    4.属性不在组件内部修改，状态要在内部改
+    5.属性能设置子组件初始值。状态不可以
+    6.属性可以修改子组件的值，状态不可以
+*/
+  var Father = React.createClass({
+    getDefaultProps(){
+      return {
+        name: 'vue'
+      }
+    },
+    getInitialState(){
+      return {
+        name: 'James',
+        onOff: true,
+        flag: true
+      }
+    },
+    render(){
+      let {flag} = this.state
+      let {name} = this.props
+      return(
+        <div>
+          <h3>hello,React!</h3>
+          <Cat name={this.props.name}/>
+        </div>
+      )
+    }
+  })
+  var Cat = React.createClass({
+    getInitialState(){
+      return {
+        yanzhi: '高'
+      }
+    },
+    change(){
+      this.setState({yanzhi: '低'})
+    },
+    render(){
+      return(
+        <div>
+          <h3>hello,Cat!</h3>
+          <button onClick={this.change}>修改</button>
+          <h3>{this.state.yanzhi}</h3>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father name='宙斯'/>,
+    app
+  )
+</script>
+</html>

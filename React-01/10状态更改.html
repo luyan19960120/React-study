@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>react-10状态更改</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+</body>
+<!-- React一切皆组件 -->
+<!-- 1.引入 -->
+<script src="react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：state和props
+    1.声明状态  getInitialState钩子函数
+    2.修改状态  this.setState({key:value})
+*/
+  var Father = React.createClass({
+    //状态的声明使用一个钩子函数  getInitialState  return obj，因为希望有一个独立的state
+    getInitialState(){
+      return {
+        name: 'James',
+        onOff: true,
+        flag: true
+      }
+    },
+    change(){
+      var {flag} = this.state
+      this.setState({flag: !flag})
+    },
+    render(){
+      let {flag} = this.state
+      return(
+        <div>
+          <h3>hello,React!</h3>
+          <input onClick={this.change} type="button" value="修改"/>
+          <p>{ this.state.flag?'true':'false' }</p>
+        </div>
+      )
+    }
+  })
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h3>hello,Son!</h3>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件通讯</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="../React-01/react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="../React-01/react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="../React-01/browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：通信
+    1.props 默认也行 手动设置也行
+    2.state
+      状态是针对自己的，修改也只能自己修改
+      所以我们可以将状态转成属性绑定在组件身上，
+      这样子组件就可以拿到父组件的状态了
+    3.子组件拿到的都是属性
+    
+*/
+  var Father = React.createClass({
+    getDefaultProps(){
+      return {
+        name: 'View'
+      }
+    },
+    getInitialState(){
+      return {
+        doing: '打游戏'
+      }
+    },
+    render(){
+      let {flag} = this.state
+      let {name} = this.props
+      return(
+        <div>
+          <h3>father!</h3>
+          <Son 
+            name={this.props.name}
+            age={this.props.age}
+            doing={this.state.doing}/>
+        </div>
+      )
+    }
+  })
+
+  var Son = React.createClass({
+    render(){
+      return(
+        <div>
+          <h4>son</h4>
+          <h4>{this.props.name}</h4>
+          <h4>{this.props.age}</h4>
+          <h4>{this.props.doing}</h4>
+        </div>
+      )
+    }
+  })
+
+  ReactDOM.render(
+    <Father age='2'/>,
+    app
+  )
+</script>
+</html>

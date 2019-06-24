@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>表单</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<!-- 1.引入 -->
+<script src="../React-01/react.min.js" charset="utf-8"></script>   <!-- 创建组件的 -->
+<script src="../React-01/react-dom.min.js" charset="utf-8"></script>   <!-- 渲染虚拟DOM的 -->
+<script src="../React-01/browser.min.js" charset="utf-8"></script>   <!-- 解析jsx语法的 -->
+
+<script type="text/babel">
+/*
+  总结：react表单
+    
+*/
+  var Father = React.createClass({
+    render(){
+      return(
+        <div>
+          {/*<input type='text' value='你好'/>*/}
+          <input type='text' defaultValue='你好'/>
+          <input type='checkbox' defaultChecked='你好'/>
+        </div>
+      )
+    }
+  })
+  ReactDOM.render(
+    <Father/>,
+    app
+  )
+</script>
+</html>
