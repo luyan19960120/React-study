@@ -65,3 +65,25 @@ vue:
     componentWillMount(){
       //提供组件挂载前最后一次修改数据的机会
     }
+
+## redux开发流程
+  ### 划分reducer，这样的话我们就可以有一些数据包了
+  1.划分reducer 我们要借助一个工具  combineRedecers
+    import {combineRedecers} from 'redux'
+  2.创建多个数据模块
+    目录
+      state.js
+      type.js
+      reducer.js
+      actionCreateor.js
+  3.创建统一的reducer的管理者  store/reducer.js(统一管理)
+    import {combineRedecers} from 'redux'
+
+    //引入多个分片（chunk）reducer
+    import todoList from './todoList/reducer'
+
+    //创建真正的reducer
+    const reducer = combineRedecers({
+      todoList
+    })
+    export default reducer
